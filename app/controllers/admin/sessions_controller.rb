@@ -1,8 +1,11 @@
-class Admin::SessionsController < ApplicationController
+class Admin::SessionsController < Admin::ApplicationController
+  skip_before_action :require_admin_login, only: %i[new create]
+
   def new
   end
 
   def create
+    Rails.logger.debug "PARAMS=#{params.to_unsafe_h}"
     user = AdminUser.find_by(email: params[:email])
 
     if user&.authenticate(params[:password])
@@ -15,7 +18,7 @@ class Admin::SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session
+    session.delete(:admin_user_id)
     redirect_to new_admin_session_path, notice: "ログアウトしました"
   end
 end

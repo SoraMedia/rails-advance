@@ -1,9 +1,9 @@
 class Public::EventsController < ApplicationController
   def index
-    @events = Event.order(held_on: :desc, created_at: :desc)
+    @events = Event.kept.order(held_on: :asc)
   end
 
   def show
-    @event = Event.find(params[:id])
+    @event = Event.kept.find(params[:id])
   end
 end
