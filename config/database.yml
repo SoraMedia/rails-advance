@@ -20,14 +20,14 @@ default: &default
 development:
   <<: *default
   database: development
-  host: postgres
+  host: localhost
   username: postgres
   password: postgres
 
 test:
   <<: *default
   database: test
-  host: postgres
+  host: localhost
   username: postgres
   password: postgres
 
